@@ -1,13 +1,46 @@
 import React from 'react';
-
+import './Person.css';
+import Button from 'react-bootstrap/Button';
 
 
 class Person extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      waves: 0,
+      helpMe: false,
+    }
+  }
+
+  handleWave = () => {
+    this.setState({
+      waves: this.state.waves + 1
+    });
+  }
+
+  needHelp = () => {
+    this.setState({
+      helpMe: true
+    });
+  }
+
+  gotHelp = () => {
+    this.setState({
+      helpMe: false
+    });
+  }
+
   render(){
     return(
       <>
         <article>
-          <p>{this.props.name}</p>
+          <h3>{this.props.name}</h3>
+          <p> 👋{this.state.waves} Greetings</p>
+          <p onClick={this.handleWave}>Say Hello!</p>
+          <img src={this.props.imageURL} alt={this.props.name} />
+          <Button onClick={this.needHelp} variant="danger">Help!</Button>
+          <Button onClick={this.gotHelp} variant="success">Got Help!</Button>
+          <div>{this.state.helpMe ? 'I need help' : ''}</div>
         </article>
       </>
     )
